@@ -1,9 +1,9 @@
 module.exports = {
-    name: 'pause',
+    name: 'stop',
     category: 'music',
     execute(message, args) {
+        message.client.musicQueue[0].connection.dispatcher.end();
         message.client.musicQueue=[];
-        console.log(message.client.musicQueue)
-        if(!message.client.musicQueue.length)console.log('true');
+        if(!message.client.musicQueue.length)console.log(message.client.musicQueue);
     }
 }

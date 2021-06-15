@@ -22,6 +22,7 @@ for (let folder of commandFolders) {
 
 client.once("ready", () => {
   console.log(`"Ready! Logged in as ${client.user.tag}"`);
+  client.user.setActivity("nothing");
 });
 
 client.on("message", (message) => {
