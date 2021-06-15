@@ -3,8 +3,9 @@ module.exports = {
     guildOnly: true,
     args:true,
     permissions:'ADMINISTRATOR',
-    usage: '<activity>',
+    usage: '<status>',
     execute(message,args) {
-        message.channel.send('Du Hurensohn')
+        const statuses=["dnd","online", "offline"]
+        message.client.user.setStatus(args[0]);
     }
 }
