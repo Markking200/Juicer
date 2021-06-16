@@ -1,3 +1,4 @@
+const embed= require("../../embeds/embeds")
 module.exports = {
   name: "args-info",
   description: "Information about the arguments provided",

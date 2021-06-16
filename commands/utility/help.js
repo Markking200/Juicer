@@ -1,3 +1,4 @@
+const embed= require("../../embeds/embeds")
 const { prefix } = require("../../config.json");
 
 module.exports = {

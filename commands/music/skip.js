@@ -1,3 +1,5 @@
+const embed= require("../../embeds/embeds")
+
 module.exports = {
     name: 'skip',
     execute(message, args) {

@@ -1,4 +1,5 @@
 const yts  = require("yt-search");
+const embed= require("../../embeds/embeds")
 
 module.exports = {
     name: 'test',

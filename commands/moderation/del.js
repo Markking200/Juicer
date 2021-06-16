@@ -1,3 +1,5 @@
+const embed= require("../../embeds/embeds")
+
 module.exports={
     name: 'del',
     description: 'Deletes the given amount of Messages',

@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const embed= require("../../embeds/embeds")
 
 module.exports = {
   name: "avatar",

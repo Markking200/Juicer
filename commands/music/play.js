@@ -1,6 +1,7 @@
 const ytdl = require("ytdl-core");
 const yts  = require("yt-search");
 const resume = require("./resume")
+const embed= require("../../embeds/embeds")
 
 module.exports = {
   name: "play",
