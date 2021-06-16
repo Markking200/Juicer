@@ -1,5 +1,6 @@
 const ytdl = require("ytdl-core");
 const yts  = require("yt-search");
+const resume = require("./resume")
 
 module.exports = {
   name: "play",
@@ -8,6 +9,11 @@ module.exports = {
   async execute(message, args) {
     const { musicQueue } = message.client;
     const voiceChannel = message.member.voice.channel;
+
+    console.log(args)
+    if(!args.length){
+      return resume.execute(message, args);
+    }
 
     if (!voiceChannel) {
       return message.reply("You need to be in a voice channel.");
