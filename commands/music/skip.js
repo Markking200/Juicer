@@ -2,7 +2,7 @@ const embed= require("../../embeds/embeds")
 
 module.exports = {
     name: 'skip',
-    execute(message, args) {
+    async execute(message, args) {
         if(!message.member.voice.channel){
             return message.reply('You have to be in a voice channel to be able to skip a song.');
         }

@@ -1,35 +1,41 @@
 module.exports = {
-    name: 'ac',
-    guildOnly: true,
-    args:true,
-    permissions:'ADMINISTRATOR',
-    usage: '<activity>',
-    execute(message,args) {
-        const act = options.find(opt=>opt.name ===args[0])||args[0];
-        if(act!==args[0]){
-            return act.run(message);
-        }
-        message.client.user.setActivity(act)
+  name: "ac",
+  guildOnly: true,
+  args: true,
+  permissions: "ADMINISTRATOR",
+  usage: "<activity>",
+  execute(message, args) {
+    var act =
+      options.find(
+        (opt) => opt.name === args[0] || opt.aliases.includes(args[0])
+      ) || args.join(" ");
+    console.log(act);
+    if (act !== args.join(" ")) {
+      return act.run(message);
     }
-}
+    message.client.user.setActivity(act);
+  },
+};
 
 const options = [
-{
-    name: 'showMembers',
+  {
+    name: "showMembers",
     aliases: ["sm"],
-    run(message){
-        message.client.guilds.cache.forEach(guild =>{
-            message.client.user.setActivity(guild.memberCount+` members`)
-        });
-    }
-},
-{
-    name: 'showOnlineCount',
+    run(message) {
+      message.client.guilds.cache.forEach((guild) => {
+        message.client.user.setActivity(guild.memberCount + ` members`);
+      });
+    },
+  },
+  {
+    name: "showOnlineCount",
     aliases: ["soc"],
-    run(message){
-        const onlineMembers=message.client.guilds.cache.forEach(guild =>{
-            //
-        });
-    }
-},
-]
+    async run(message) {
+      return (mes = String(
+        message.client.guilds.cache.members.cache.filter(
+          (m) => m.presence.status === "online"
+        ).size
+      ));
+    },
+  },
+];

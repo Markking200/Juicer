@@ -5,7 +5,7 @@ module.exports = {
     description: '§ping',
     cooldown:20,
     guildOnly: true,
-    execute(message,args) {
+    async execute(message,args) {
         embed.execute(message,args,`🏓 Your, Latency is ${Date.now() - message.createdTimestamp}ms. API Latency is ${Math.round(message.client.ws.ping)}ms`)
     }
 }

@@ -5,7 +5,7 @@ module.exports = {
   description: "Information about the roles provided",
   args: true,
   usage: '<username>',
-  execute(message, args) {
+  async execute(message, args) {
       embed.execute(message, args[0]);
   },
 };

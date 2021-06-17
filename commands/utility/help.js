@@ -7,7 +7,7 @@ module.exports = {
   aliases: ["help", "commands", "auskunft"],
   usage: "[command name]",
   cooldown: 5,
-  execute(message, args) {
+  async execute(message, args) {
     const data = [];
     const { commands } = message.client;
     if (!args.length) {

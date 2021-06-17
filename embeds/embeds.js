@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: 'embeds',
-    execute(message,args,text) {
+    async execute(message,args,text) {
         const prefix='§'
         var authorsMessage= new Object();
         if(!args[0]){

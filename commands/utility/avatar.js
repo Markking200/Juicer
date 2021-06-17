@@ -6,7 +6,7 @@ module.exports = {
   description: "Get the avatar URL of the tagged user(s), or your own avatar.",
   aliases: ["avatar","icon","pfp"],
   guildOnly: true,
-  execute(message, args) {
+  async execute(message, args) {
     if (!message.mentions.users.size) {
       const embed = new Discord.MessageEmbed()
         .setColor('#00fff7')

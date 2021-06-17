@@ -22,7 +22,7 @@ module.exports = {
       return message.reply("The bot is already playing")
     }
     
-    const song = await getSong(args[0]);
+    const song = await getSong(args.toString());
 
     if (!musicQueue.length) {
       const queueContruct = {

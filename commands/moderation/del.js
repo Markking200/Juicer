@@ -6,7 +6,7 @@ module.exports={
     args:true,
     permissions:'ADMINISTRATOR',
     usage: '<amount>',
-    execute(message,args){
+    async execute(message,args){
         console.log(args[0])
         let amount =parseInt(args[0])
         if(amount<2 ||amount >100){

@@ -5,7 +5,7 @@ module.exports = {
     permissions:'ADMINISTRATOR',
     usage: '<status>',
     execute(message,args) {
-        const statuses=["dnd","online", "offline"]
+        const statuses=["online","idle", "dnd","invisible"]
         message.client.user.setStatus(args[0]);
     }
 }
