@@ -1,7 +1,7 @@
 const ytdl = require("ytdl-core");
-const yts  = require("yt-search");
-const resume = require("./resume")
-const embed= require("../../embeds/embeds")
+const yts = require("yt-search");
+const resume = require("./resume");
+const embed = require("../../embeds/embeds");
 
 module.exports = {
   name: "play",
@@ -11,17 +11,18 @@ module.exports = {
     const { musicQueue } = message.client;
     const voiceChannel = message.member.voice.channel;
 
-    console.log(args)
-    if(!args.length){
+    console.log(args.toString());
+    if (!args.length) {
       return resume.execute(message, args);
     }
 
     if (!voiceChannel) {
       return message.reply("You need to be in a voice channel.");
-    }else if (!musicQueue[0]){}else if(musicQueue[0].voiceChannel!==voiceChannel){
-      return message.reply("The bot is already playing")
+    } else if (!musicQueue[0]) {
+    } else if (musicQueue[0].voiceChannel !== voiceChannel) {
+      return message.reply("The bot is already playing");
     }
-    
+
     const song = await getSong(args.toString());
 
     if (!musicQueue.length) {
@@ -57,7 +58,8 @@ module.exports = {
       }
       musicQueue[0].songs.push(song);
       console.log(musicQueue[0].songs.length);
-      return message.reply(
+      return embed.execute(
+        message,
         `${song.title} has been added to the queue successfully!`
       );
     }
@@ -67,8 +69,8 @@ module.exports = {
 async function play(song, message, musicQueue) {
   if (!musicQueue[0].songs.length) {
     musicQueue[0].voiceChannel.leave();
-    message.client.musicQueue=[];
-    console.log(message.client.musicQueue)
+    message.client.musicQueue = [];
+    console.log(message.client.musicQueue);
     return;
   }
   const dispatcher = musicQueue[0].connection
@@ -79,36 +81,34 @@ async function play(song, message, musicQueue) {
     })
     .on("error", (error) => console.error(error));
   dispatcher.setVolumeLogarithmic(musicQueue[0].volume / 5);
-  message.channel.send(`Started playing: **${song.title}**`);
+  embed.execute(message, `▶️ Started playing: **${song.title}** 🟢`);
 }
 
 function getSong(args) {
-  if(validURL(args)){
-    return songByURL(args)
-  }else{
+  if (validURL(args)) {
+    return songByURL(args);
+  } else {
     return songByName(args);
   }
 }
 
 async function songByURL(args) {
   const songInfo = await ytdl.getInfo(args);
-  return song1 = {
-        title: songInfo.videoDetails.title,
-        url: songInfo.videoDetails.video_url,
-    };
+  return (song1 = {
+    title: songInfo.videoDetails.title,
+    url: songInfo.videoDetails.video_url,
+  });
 }
 
 async function songByName(args) {
-  const videos= await yts(args);
-  return song= 
-      {
-        title: videos.all[0].title,
-        url: videos.all[0].url,
-      };
+  const videos = await yts(args);
+  return (song = {
+    title: videos.all[0].title,
+    url: videos.all[0].url,
+  });
 }
 
-
-function validURL(str){
+function validURL(str) {
   var regex =
     /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
   if (!regex.test(str)) {
@@ -116,4 +116,4 @@ function validURL(str){
   } else {
     return true;
   }
-};
+}

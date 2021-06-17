@@ -7,6 +7,6 @@ module.exports = {
     if (args[0] === "foo") {
         return message.reply(` du Hurensohn`);
     }
-    message.reply(`Arguments: ${args}\nArguments length: ${args.length}`);
+    embed.execute(message,`Arguments: ${args}\nArguments length: ${args.length}`);
   },
 };

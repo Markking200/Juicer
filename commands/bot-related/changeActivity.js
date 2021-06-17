@@ -9,7 +9,6 @@ module.exports = {
       options.find(
         (opt) => opt.name === args[0] || opt.aliases.includes(args[0])
       ) || args.join(" ");
-    console.log(act);
     if (act !== args.join(" ")) {
       return act.run(message);
     }

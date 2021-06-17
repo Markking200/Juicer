@@ -4,8 +4,6 @@ const Discord = require("discord.js");
 const { prefix } = require("../config.json");
 const commandFolders = fs.readdirSync(path.resolve(__dirname, `../commands`));
 
-
-
 module.exports = {
   name: "message",
   execute(message, client) {
@@ -13,7 +11,7 @@ module.exports = {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
 
-    getPaths(client) 
+    getPaths(client);
 
     const command =
       client.commands.get(commandName) ||
@@ -40,7 +38,7 @@ module.exports = {
     }
     //////////////////////////////////////////////////////////////
 
-    //if the full argument was provided
+    //checking if the full argument was provided
     if (command.args && !args.length) {
       let reply = `You didn't provide any arguments, ${message.author}!`;
 
@@ -95,14 +93,17 @@ module.exports = {
   },
 };
 
-async function getPaths(client){
-    for (let folder of commandFolders) {
-        const commandFiles = fs
-          .readdirSync(path.resolve(__dirname, `../commands/${folder}`))
-          .filter((file) => file.endsWith(".js"));
-        for (let file of commandFiles) {
-          const command = require(path.resolve(__dirname, `../commands/${folder}/${file}`));
-          client.commands.set(command.name, command);
-        }
-      }
+async function getPaths(client) {
+  for (let folder of commandFolders) {
+    const commandFiles = fs
+      .readdirSync(path.resolve(__dirname, `../commands/${folder}`))
+      .filter((file) => file.endsWith(".js"));
+    for (let file of commandFiles) {
+      const command = require(path.resolve(
+        __dirname,
+        `../commands/${folder}/${file}`
+      ));
+      client.commands.set(command.name, command);
+    }
+  }
 }
