@@ -28,7 +28,7 @@ const options = [
   },
   {
     name: "showOnlineCount",
-    aliases: ["soc"],
+    aliases: ["soc"],//
     async run(message) {
       return (mes = String(
         message.client.guilds.cache.members.cache.filter(
