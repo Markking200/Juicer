@@ -4,8 +4,13 @@ module.exports = {
   args: true,
   permissions: "ADMINISTRATOR",
   usage: "<status>",
-  execute(message, args) {
+  async execute(message, args) {
     const statuses = ["online", "idle", "dnd", "invisible"];
-    message.client.user.setStatus(args[0]);
+    console.log(args);
+    const status= args.toString();
+    await message.client.user.setStatus(status);
+    if(statuses.includes(status))
+      message.client.user.setStatus(status);
+      console.log(message.client.user.status);
   },
 };

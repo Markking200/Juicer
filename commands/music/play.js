@@ -2,16 +2,18 @@ const ytdl = require("ytdl-core");
 const yts = require("yt-search");
 const resume = require("./resume");
 const embed = require("../../embeds/embeds");
+const loop = require("./loop");
 
 module.exports = {
   name: "play",
-  aliases: ["p", "play"],
+  aliases: ["p", "play", "loop"],
   description: "Playes a song after entering a songname",
   async execute(message, args) {
     const { musicQueue } = message.client;
     const voiceChannel = message.member.voice.channel;
 
-    console.log(args.toString());
+    console.log(args.toString() + " : args");
+
     if (!args.length) {
       return resume.execute(message, args);
     }
@@ -21,6 +23,10 @@ module.exports = {
     } else if (!musicQueue[0]) {
     } else if (musicQueue[0].voiceChannel !== voiceChannel) {
       return message.reply("The bot is already playing");
+    }
+
+    if (args.toString() === "loop") {
+      return loopSong(message, musicQueue);
     }
 
     const song = await getSong(args.toString());
@@ -33,6 +39,7 @@ module.exports = {
         songs: [],
         volume: 5,
         playing: true,
+        loop: false,
       };
 
       // Setting the queue using our contract
@@ -79,8 +86,38 @@ async function play(song, message, musicQueue) {
       musicQueue[0].songs.shift();
       play(musicQueue[0].songs[0], message, musicQueue);
     })
-    .on("error", (error) => console.error(error));
+    .on("error", (error) => {
+      if(error===403){
+        play(song, message, musicQueue);
+      }
+      console.error(error)
+    });
   dispatcher.setVolumeLogarithmic(musicQueue[0].volume / 5);
+  embed.execute(message, `▶️ Started playing: **${song.title}** 🟢`);
+}
+
+async function loopSong(message, musicQueue) {
+  if (!musicQueue[0].songs.length) {
+    musicQueue[0].voiceChannel.leave();
+    message.client.musicQueue = [];
+    console.log(message.client.musicQueue);
+    return;
+  }
+  const dispatcher = musicQueue[0].connection
+    .play(ytdl(song.url, { filter: "audioonly" }))
+    .on("finish", () => {
+      if(musicQueue[0].loop) {
+        loopSong(message, musicQueue);
+      }else {
+        musicQueue[0].songs=[];
+      }
+    })
+    .on("error", (error) => {
+      if(error===403){
+        play(song, message, musicQueue);
+      }
+      console.error(error)
+    });
   embed.execute(message, `▶️ Started playing: **${song.title}** 🟢`);
 }
 

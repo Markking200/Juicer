@@ -28,12 +28,10 @@ const options = [
   },
   {
     name: "showOnlineCount",
-    aliases: ["soc"],//
+    aliases: ["soc"],
     async run(message) {
       return (mes = String(
-        message.client.guilds.cache.members.cache.filter(
-          (m) => m.presence.status === "online"
-        ).size
+        (await message.client.guilds.members.fetch()).filter((member) => !member.user.bot && member.user.presence.status == 'online').size
       ));
     },
   },

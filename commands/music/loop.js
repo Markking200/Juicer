@@ -1,4 +1,5 @@
 const embed = require("../../embeds/embeds");
+const play = require("./play");
 
 module.exports = {
   name: "loop",
@@ -7,12 +8,19 @@ module.exports = {
     if (!message.member.voice.channel) {
       return embed.execute(
         message,
-        "You have to be in a voice channel to be able to pause a song."
+        "You have to be in a voice channel to be able to loop a song."
       );
     }
     if (!message.client.musicQueue.length) {
-      return embed.execute(message, "There is no music to pause!");
+      return embed.execute(message, "There is no music to loop!");
     }
-    //to do...
+    const mes = ["loop"]
+    if(message.client.musicQueue[0].loop){
+      message.client.musicQueue[0].loop=false;
+    }else{
+      message.client.musicQueue[0].loop=true;
+      play.execute(message, mes);
+    }
+    console.log(message.client.musicQueue[0].loop);
   },
 };

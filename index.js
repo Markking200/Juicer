@@ -22,3 +22,4 @@ for (const file of eventFiles) {
 
 client.login(process.env.CLIENT_TOKEN);
 //git message :cold_face: :ice_cube:  JUICER :beverage_box::blue_heart:
+// source ~/.nvm/nvm.sh

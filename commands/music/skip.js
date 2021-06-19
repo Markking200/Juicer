@@ -12,6 +12,7 @@ module.exports = {
       return message.reply("There is no music to skip!");
     }
     message.client.musicQueue[0].connection.dispatcher.end();
+    console.log(message.client.musicQueue[0].songs)
     embed.execute(message, "⏩ **SKIPPED** ⏩");
   },
 };
