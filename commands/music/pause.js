@@ -2,6 +2,7 @@ const embed = require("../../embeds/embeds");
 
 module.exports = {
   name: "pause",
+  aliases: ["pa"],
   async execute(message, args) {
     if (!message.member.voice.channel) {
       return embed.execute(
