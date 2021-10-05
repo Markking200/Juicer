@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 require("dotenv").config();
-const client = new Discord.Client();
+const {Client}= require("discord.js")
+const client = new Client({ intents: ['GUILD_VOICE_STATES'] });
 
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();

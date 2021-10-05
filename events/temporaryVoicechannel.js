@@ -1,10 +1,11 @@
 const { Collection } = require("discord.js");
 const voiceCollection = new Collection();
 const fetch = require("node-fetch-polyfill");
+const TempChannels = require("discord-temp-channels");
 
 module.exports = {
   name: "voiceStateUpdate",
-  async execute(oldState, newState, client) {
+  async execute(oldState, newState, message) {
     var user = await client.users.fetch(newState.id);
 
     const member = newState.guild.member(user);

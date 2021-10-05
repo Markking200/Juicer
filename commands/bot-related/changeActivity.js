@@ -1,18 +1,21 @@
+const fetch = require("node-fetch-polyfill");
+
 module.exports = {
   name: "ac",
   guildOnly: true,
   args: true,
   permissions: "ADMINISTRATOR",
   usage: "<activity>",
-  execute(message, args) {
+   async execute(message, args) {
     var act =
       options.find(
         (opt) => opt.name === args[0] || opt.aliases.includes(args[0])
       ) || args.join(" ");
     if (act !== args.join(" ")) {
-      return act.run(message);
+      console.log( await message.client.user.setActivity(act.run(message)))
+      return await message.client.user.setActivity(act.run(message));
     }
-    message.client.user.setActivity(act);
+    
   },
 };
 
@@ -21,18 +24,17 @@ const options = [
     name: "showMembers",
     aliases: ["sm"],
     run(message) {
-      message.client.guilds.cache.forEach((guild) => {
-        message.client.user.setActivity(guild.memberCount + ` members`);
+      return message.client.guilds.cache.forEach((guild) => {
+        message.client.user.setActivity(`${guild.memberCount} members`);
       });
     },
   },
   {
     name: "showOnlineCount",
     aliases: ["soc"],
-    async run(message) {
-      return (mes = String(
-        (await message.client.guilds.members.fetch()).filter((member) => !member.user.bot && member.user.presence.status == 'online').size
-      ));
+    run(message) {
+        let count =message.guild.members.cache.filter(m => m.user.presence.status === 'online').size
+      return `${count} Members are Online`;
     },
   },
 ];
